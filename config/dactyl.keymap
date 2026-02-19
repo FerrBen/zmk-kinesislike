@@ -67,22 +67,36 @@
         // EC11 rotation handled by sensor-bindings
 
         default_layer {
-            // LEFT KEYS (7 cols)          5WAY    RIGHT KEYS (7 cols)
+            // DEBUG KEYMAP - each key outputs a unique character to identify its position
+            // Left cols 0-6 (L)    5-way col 7 (S)    Right cols 8-14 (R)
+            //
+            // Expected output when pressing keys left-to-right, top-to-bottom:
+            // LEFT  Row 0: 1 2 3 4 5 6 7       5way: a    RIGHT Row 0: q w e r t y u
+            // LEFT  Row 1: 8 9 0 - = [ ]       5way: b    RIGHT Row 1: i o p a s d f
+            // LEFT  Row 2: a s d f g h j       5way: c    RIGHT Row 2: g h j k l ; '
+            // LEFT  Row 3: z x c v b n (none)  5way: d    RIGHT Row 3: m , . / 1 2 (none)
+            // LEFT  Row 4: 3 4 5 6 (nones)     5way: e    RIGHT Row 4: 7 8 9 0 (nones)
+            // LEFT  Row 5: q w e r t (nones)   (none)     RIGHT Row 5: y u i o p (nones)
+            // EC11 push: z
+            //
+            // NOTE: left uses &kp N1-N7 for row0 to avoid modifier confusion
+            //       right uses &kp letters to be clearly distinguishable
+
             bindings = <
-// Row 0: 7 left                          5way-up   7 right
-&kp GRAVE         &kp N1  &kp N2                &kp N3                 &kp N4            &kp N5     &kp C_VOL_DN   &tmux_n4   &kp C_VOLUME_UP  &kp N6          &kp N7        &kp N8         &kp N9            &kp N0         &kp DELETE
-// Row 1: 7 left                          5way-ctr  7 right
-&kp LEFT_BRACKET  &kp Q   &kp W                 &kp E                  &kp R             &kp T      &kp C_BRI_DEC  &kp LC(A)  &kp C_BRI_INC    &kp Y           &kp U         &kp I          &kp O             &kp P          &kp RIGHT_BRACKET
-// Row 2: 7 left                          5way-dn   7 right
-&lt 3 MINUS       &kp A   &kp S                 &kp D                  &kp F             &kp G      &kp EQUAL      &tmux_n3   &kp EXCL         &kp H           &kp J         &kp K          &kp L             &kp SEMI       &kp APOS
-// Row 3: 6 left             +none        5way-lt   6 right            +none
-&kp LALT          &kp Z   &kp X                 &kp C                  &kp V             &kp B      &none          &tmux_n1   &kp N            &kp M           &kp COMMA     &kp DOT        &kp FSLH          &kp LALT       &none
-// Row 4: 4 left         +3 none          5way-rt   4 right        +3 none
-&kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &lt 2 ENTER  &sk LEFT_COMMAND  &none      &none      &none          &tmux_n2   &kp LEFT_SHIFT   &lt 1 ESCAPE    &kp BACKSLASH  &kp PIPE      &none             &none          &none
-// Row 5: 5 left         +2 none          (none)    5 right        +2 none
-&kp LCTRL         &kp LEFT  &kp TAB             &kp SPACE              &kp BACKSPACE     &none      &none          &none      &kp DELETE       &kp LEFT_CONTROL  &kp RIGHT    &kp LALT      &kp RIGHT_SHIFT   &none          &none
-// Row 6: EC11 push button (right side only)
-&kp C_MUTE
+// Row 0: L=1234567  S=a  R=qwertyu
+&kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp N6  &kp N7     &kp A      &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U
+// Row 1: L=890-=[]  S=b  R=iopasdf
+&kp N8  &kp N9  &kp N0  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT  &kp B  &kp I  &kp O  &kp P  &kp F1  &kp F2  &kp F3  &kp F4
+// Row 2: L=asdfghj  S=c  R=ghjkl;'
+&kp F5  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &kp F11    &kp C      &kp F12  &kp G  &kp H  &kp J  &kp K  &kp L  &kp SEMI
+// Row 3: L=zxcvbn+none  S=d  R=m,./ 12+none
+&kp Z  &kp X  &kp V  &kp COMMA  &kp DOT  &kp FSLH  &none     &kp D      &kp M  &kp N  &kp GRAVE  &kp BSLH  &kp SQT  &kp MINUS  &none
+// Row 4: L=3456+3none  S=e  R=7890+3none
+&kp N3  &kp N4  &kp N5  &kp N6  &none  &none  &none          &kp E      &kp N7  &kp N8  &kp N9  &kp N0  &none  &none  &none
+// Row 5: L=qwert+2none  (none)  R=yuiop+2none
+&kp Q  &kp W  &kp E  &kp R  &kp T  &none  &none              &none      &kp Y  &kp U  &kp I  &kp O  &kp P  &none  &none
+// Row 6: EC11 push button
+&kp Z
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
