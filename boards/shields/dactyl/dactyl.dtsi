@@ -9,11 +9,19 @@
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
-        columns = <15>;
+        columns = <16>;
         rows = <7>;
-// | MX1  | MX2  | MX3  | MX4  | MX5  | MX6  | MX7  | MX_NEW |      | MX8  | MX9  | MX10 | MX11 | MX12 | MX13 | MX14 |
-// | ...  | ...  | ...  | ...  | ...  | ...  | ...  | ...    |      | ...  | ...  | ...  | ...  | ...  | ...  | ...  |
-// etc.
+// LEFT KEYS (cols 0-6)     5-WAY (col 7)    RIGHT KEYS (cols 8-14)       EC11 BTN (col 15)
+// Row 0: 7 left keys       1 5-way          7 right keys                 = 15
+// Row 1: 7 left keys       1 5-way          7 right keys                 = 15
+// Row 2: 7 left keys       1 5-way          7 right keys                 = 15
+// Row 3: 6 left keys       1 5-way          6 right keys                 = 13 (+2 none)
+// Row 4: 4 left keys       1 5-way          4 right keys                 = 9  (+6 none)
+// Row 5: 5 left keys       (none)           5 right keys                 = 10 (+5 none)
+// Row 6:                                                    1 EC11 push  = 1
+// Left total:  36 keys + 5 five-way = 41
+// Right total: 36 keys + 1 EC11 push button = 37
+// Grand total: 78 key positions (+ EC11 rotation via sensor)
 
         map = <
 RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7)      RC(0,8) RC(0,9) RC(0,10) RC(0,11) RC(0,12) RC(0,13) RC(0,14)
@@ -22,7 +30,7 @@ RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7)      RC(2,8) RC(
 RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7)      RC(3,8) RC(3,9) RC(3,10) RC(3,11) RC(3,12) RC(3,13) RC(3,14)
 RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7)      RC(4,8) RC(4,9) RC(4,10) RC(4,11) RC(4,12) RC(4,13) RC(4,14)
 RC(5,0) RC(5,1) RC(5,2) RC(5,3) RC(5,4) RC(5,5) RC(5,6) RC(5,7)      RC(5,8) RC(5,9) RC(5,10) RC(5,11) RC(5,12) RC(5,13) RC(5,14)
-RC(6,0) RC(6,1) RC(6,2) RC(6,3) RC(6,4) RC(6,5) RC(6,6) RC(6,7)      RC(6,8) RC(6,9) RC(6,10) RC(6,11) RC(6,12) RC(6,13) RC(6,14)
+RC(6,15)
         >;
     };
 

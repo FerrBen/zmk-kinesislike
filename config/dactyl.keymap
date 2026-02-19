@@ -61,17 +61,31 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            // LEFT HAND                                                      5-WAY SWITCH      RIGHT HAND
+        // Layout per side: 7-7-7-6-5-3 = 35 keys
+        // Left:  cols 0-6 (keys) + col 7 (5-way switch, rows 0-4)
+        // Right: cols 8-14 (keys, includes EC11 push button)
+        // EC11 rotation handled by sensor-bindings
 
+        default_layer {
+            // LEFT KEYS (7 cols)          5WAY    RIGHT KEYS (7 cols)
             bindings = <
-&kp GRAVE         &kp N1  &kp N2                &kp N3                 &kp N4            &kp N5     &kp C_VOL_DN   &tmux_n4   &kp C_VOLUME_UP  &kp N6          &kp N7        &kp N8         &kp N9            &kp N0    &kp DELETE
-&kp LEFT_BRACKET  &kp Q   &kp W                 &kp E                  &kp R             &kp T      &kp C_BRI_DEC  &kp LC(A)  &kp C_BRI_INC    &kp Y           &kp U         &kp I          &kp O             &kp P     &kp RIGHT_BRACKET
-&lt 3 MINUS       &kp A   &kp S                 &kp D                  &kp F             &kp G      &kp EQUAL      &tmux_n3   &kp EXCL         &kp H           &kp J         &kp K          &kp L             &kp SEMI  &kp APOS
-&kp LALT          &kp Z   &kp X                 &kp C                  &kp V             &kp B      &none          &tmux_n1   &none            &kp N           &kp M         &kp COMMA      &kp DOT           &kp FSLH  &kp LALT
-&none             &none   &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &lt 2 ENTER       &none      &none          &tmux_n2   &none            &none           &lt 1 ESCAPE  &kp BACKSLASH  &kp PIPE          &none     &none
-&kp N1            &kp N2  &kp LCTRL             &kp LEFT               &sk LEFT_COMMAND  &kp SPACE  &kp N1         &none      &kp N3           &kp LEFT_SHIFT  &kp TAB       &kp BACKSPACE  &kp LEFT_CONTROL  &kp N1    &kp N2
+// Row 0: 7 left                          5way-up   7 right
+&kp GRAVE         &kp N1  &kp N2                &kp N3                 &kp N4            &kp N5     &kp C_VOL_DN   &tmux_n4   &kp C_VOLUME_UP  &kp N6          &kp N7        &kp N8         &kp N9            &kp N0         &kp DELETE
+// Row 1: 7 left                          5way-ctr  7 right
+&kp LEFT_BRACKET  &kp Q   &kp W                 &kp E                  &kp R             &kp T      &kp C_BRI_DEC  &kp LC(A)  &kp C_BRI_INC    &kp Y           &kp U         &kp I          &kp O             &kp P          &kp RIGHT_BRACKET
+// Row 2: 7 left                          5way-dn   7 right
+&lt 3 MINUS       &kp A   &kp S                 &kp D                  &kp F             &kp G      &kp EQUAL      &tmux_n3   &kp EXCL         &kp H           &kp J         &kp K          &kp L             &kp SEMI       &kp APOS
+// Row 3: 6 left             +none        5way-lt   6 right            +none
+&kp LALT          &kp Z   &kp X                 &kp C                  &kp V             &kp B      &none          &tmux_n1   &kp N            &kp M           &kp COMMA     &kp DOT        &kp FSLH          &kp LALT       &none
+// Row 4: 4 left         +3 none          5way-rt   4 right        +3 none
+&kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &lt 2 ENTER  &sk LEFT_COMMAND  &none      &none      &none          &tmux_n2   &kp LEFT_SHIFT   &lt 1 ESCAPE    &kp BACKSLASH  &kp PIPE      &none             &none          &none
+// Row 5: 5 left         +2 none          (none)    5 right        +2 none
+&kp LCTRL         &kp LEFT  &kp TAB             &kp SPACE              &kp BACKSPACE     &none      &none          &none      &kp DELETE       &kp LEFT_CONTROL  &kp RIGHT    &kp LALT      &kp RIGHT_SHIFT   &none          &none
+// Row 6: EC11 push button (right side only)
+&kp C_MUTE
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         raise {
@@ -79,11 +93,13 @@
 &kp TILDE  &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION   &trans  &kp C_BRI_DEC  &trans      &trans    &trans          &trans                     &trans                    &trans  &trans
 &kp SLASH  &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT         &trans  &kp K_MUTE     &trans      &trans    &kp LC(D)       &kp LC(U)                  &trans                    &trans  &trans
 &kp HASH   &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT    &trans  &kp C_BRI_UP   &vim_write  &kp LEFT  &kp DOWN_ARROW  &kp UP_ARROW               &kp RIGHT                 &trans  &trans
-&kp EXCL   &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS       &trans  &kp C_VOL_UP   &trans      &kp N0    &kp LS(G)       &gg                        &kp DOLLAR                &trans  &trans
-&trans     &trans            &kp AMPS              &kp PIPE               &kp COLON          &trans         &trans  &kp C_VOL_DN   &trans      &trans    &trans          &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))  &trans  &trans
-&trans     &trans            &kp ASTERISK          &trans                 &kp BACKSLASH      &kp SEMICOLON  &trans  &trans         &trans      &trans    &trans          &trans                     &trans                    &trans  &trans
-&trans     &trans            &trans                &trans                 &trans             &trans         &trans  &trans         &trans      &trans    &trans          &trans                     &trans                    &trans  &trans
+&kp EXCL   &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS       &none   &kp C_VOL_UP   &kp N0       &kp LS(G)  &gg             &kp DOLLAR                 &trans                    &trans  &none
+&kp AMPS   &kp PIPE          &kp COLON             &kp BACKSLASH          &none              &none          &none   &kp C_VOL_DN   &trans      &trans    &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))   &none                     &none   &none
+&kp ASTERISK  &kp SEMICOLON  &trans                &trans                 &trans             &none          &none   &none          &trans      &trans    &trans                     &trans                     &trans                    &none   &none
+&trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         lower {
@@ -91,11 +107,13 @@
 &trans    &kp F1    &kp F2  &kp F3    &kp F4      &kp F5       &kp F6     &kp C_BRI_DN     &trans     &kp F7         &kp F8        &kp F9         &kp F10       &kp F11       &kp F12
 &trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT  &trans     &kp K_MUTE       &trans     &kp CARET      &kp AMPS      &kp ASTRK      &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
 &trans    &kp N1    &kp N2  &kp N3    &kp N4      &kp N5       &trans     &kp C_BRI_UP     &trans     &kp MINUS      &kp EQUAL     &kp GRAVE      &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
-&kp LALT  &kp N6    &kp N7  &kp N8    &kp N9      &kp N0       &kp LALT   &kp C_VOLUME_UP  &trans     &kp LS(UNDER)  &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT      &kp RBKT      &trans
-&trans    &trans    &trans  &trans    &trans      &trans       &trans     &kp C_VOL_DN     &trans     &trans         &trans        &trans         &trans        &trans        &trans
-&trans    &trans    &trans  &trans    &trans      &trans       &mkp LCLK  &mkp MCLK        &mkp RCLK  &trans         &trans        &trans         &trans        &trans        &trans
-&trans    &trans    &trans  &trans    &trans      &trans       &trans     &trans           &trans     &trans         &trans        &trans         &trans        &trans        &trans
+&kp LALT  &kp N6    &kp N7  &kp N8    &kp N9      &kp N0       &none      &kp C_VOLUME_UP  &kp LS(UNDER)  &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT       &kp RBKT      &trans        &none
+&trans    &trans    &trans  &trans    &none        &none        &none      &kp C_VOL_DN     &trans         &trans        &trans         &trans         &none         &none         &none
+&trans    &trans    &trans  &trans    &trans       &none        &none      &none            &mkp LCLK      &mkp MCLK     &mkp RCLK      &trans         &trans        &none         &none
+&trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         adjust {
@@ -103,11 +121,13 @@
 &bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans     &trans          &trans                    &trans                     &trans  &trans
 &out OUT_USB  &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans  &trans  &trans  &trans     &trans          &mmv MOVE_UP              &trans                     &trans  &trans
 &trans        &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN            &mmv MOVE_RIGHT            &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans     &msc SCRL_UP    &msc SCRL_DOWN            &trans                     &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans     &mkp LCLK       &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))  &trans  &trans
-&trans        &trans        &to 4         &trans        &trans        &trans        &trans  &trans  &trans  &mkp RCLK  &mkp MCLK       &mkp MB4                  &mkp MB5                   &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans     &trans          &trans                    &trans                     &trans  &trans
+&trans        &trans        &trans        &trans        &trans        &trans        &none   &trans  &trans     &msc SCRL_UP    &msc SCRL_DOWN  &trans                    &trans                     &trans  &none
+&trans        &trans        &trans        &trans        &none         &none         &none   &trans  &trans     &mkp LCLK       &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))  &none              &none   &none
+&trans        &to 4         &trans        &trans        &trans        &none         &none   &none   &mkp RCLK  &mkp MCLK       &mkp MB4                  &mkp MB5                   &trans             &none   &none
+&trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         layer_4 {
@@ -115,11 +135,13 @@
 &trans      &kp N1     &kp N2  &kp N3  &kp N4     &kp N5    &kp N6  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans      &kp TAB    &kp Q   &kp W   &kp E      &kp R     &kp T   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &kp ESCAPE  &kp CAPS   &kp A   &kp S   &kp D      &kp F     &kp G   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &kp LSHFT  &kp Z   &kp X   &kp C      &kp V     &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &trans     &trans  &trans  &kp SPACE  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &trans     &to 0   &trans  &kp LALT   &kp LGUI  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &trans     &trans  &trans  &trans     &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &kp LSHFT  &kp Z   &kp X   &kp C      &kp V     &none   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &none
+&kp SPACE   &kp LALT   &kp LGUI  &trans  &none    &none     &none   &trans  &trans  &trans  &trans  &trans  &none   &none   &none
+&to 0       &trans     &trans  &trans  &trans     &none     &none   &none   &trans  &trans  &trans  &trans  &trans  &none   &none
+&trans
             >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };

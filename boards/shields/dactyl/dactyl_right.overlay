@@ -16,8 +16,56 @@
         ;
 };
 
+/ {
+    // Direct kscan for the EC11 push button on pin 9
+    kscan_direct: kscan_direct {
+        compatible = "zmk,kscan-gpio-direct";
+        label = "KSCAN_DIRECT";
+        input-gpios = <&pro_micro 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+
+    // Composite kscan merging the key matrix + EC11 push button
+    kscan_composite: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        label = "KSCAN_COMPOSITE";
+        rows = <7>;
+        columns = <8>;
+
+        // The 36 regular keys (matrix: rows 0-5, cols 0-6)
+        matrix {
+            kscan = <&kscan0>;
+        };
+
+        // EC11 push button mapped to row 6, col 7
+        // After col-offset 8, this becomes RC(6,15) in the transform
+        direct {
+            kscan = <&kscan_direct>;
+            row-offset = <6>;
+            column-offset = <7>;
+        };
+    };
+
+    // Override chosen to use the composite kscan
+    chosen {
+        zmk,kscan = &kscan_composite;
+    };
+
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <80>;
+        status = "okay";
+    };
+
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&right_encoder>;
+        triggers-per-rotation = <20>;
+    };
+};
+
 &split {
     compatible = "zmk,split-central";
     status = "okay";
 };
-
