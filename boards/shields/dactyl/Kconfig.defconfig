@@ -1,0 +1,26 @@
+if SHIELD_DACTYL_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Dactyl Manuform"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    bool
+    default y
+
+endif
+
+if SHIELD_DACTYL_RIGHT
+
+config ZMK_SPLIT_ROLE_PERIPHERAL
+    bool
+    default y
+
+endif
+
+if SHIELD_DACTYL_LEFT || SHIELD_DACTYL_RIGHT
+
+config ZMK_SPLIT
+    bool
+    default y
+
+endif

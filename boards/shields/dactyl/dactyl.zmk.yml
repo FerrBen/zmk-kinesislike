@@ -1,0 +1,13 @@
+file_format: "1"
+id: dactyl
+name: Dactyl
+type: shield
+url: https://github.com/FerrBen/zmk-dactyl
+requires: [pro_micro]
+features:
+    - keys
+    - split
+exposes: [main_keyboard]
+siblings:
+    - dactyl_left
+    - dactyl_right
