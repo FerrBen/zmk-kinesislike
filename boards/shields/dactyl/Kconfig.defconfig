@@ -15,6 +15,12 @@ config ZMK_SPLIT_ROLE_PERIPHERAL
     bool
     default y
 
+config EC11
+    default y
+
+config EC11_TRIGGER_GLOBAL_THREAD
+    default y
+
 endif
 
 if SHIELD_DACTYL_LEFT || SHIELD_DACTYL_RIGHT
