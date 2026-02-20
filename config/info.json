@@ -76,9 +76,9 @@
         { "row": 4, "col": 3, "x": 4, "y": 4, "label": "L4c3" },
         { "row": 4, "col": 5, "x": 8, "y": 2.5, "label": "5lt" },
         { "row": 4, "col": 7, "x": 13, "y": 6, "h": 2, "label": "R4c0" },
-        { "row": 4, "col": 8, "x": 15, "y": 4, "label": "R4c1" },
-        { "row": 4, "col": 9, "x": 16, "y": 4, "label": "R4c2" },
-        { "row": 4, "col": 10, "x": 17, "y": 4, "label": "R4c3" },
+        { "row": 4, "col": 8, "x": 14, "y": 4, "label": "R4c1" },
+        { "row": 4, "col": 9, "x": 15, "y": 4, "label": "R4c2" },
+        { "row": 4, "col": 10, "x": 16, "y": 4, "label": "R4c3" },
 
         { "row": 5, "col": 0, "x": 6, "y": 6, "h": 2, "label": "L5c0" },
         { "row": 5, "col": 1, "x": 7, "y": 7, "label": "L5c1" },
