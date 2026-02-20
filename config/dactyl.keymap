@@ -77,7 +77,7 @@
 &lt 3 MINUS       &kp A                 &kp S                  &kp D         &kp F    &kp G     &kp EQUAL                      &kp UP_ARROW                          &kp EXCL         &kp H          &kp J      &kp K    &kp L     &kp SEMI  &kp APOS
 &kp LALT          &kp Z                 &kp X                  &kp C         &kp V    &kp B                                    &kp RIGHT_ARROW                       &kp N            &kp M          &kp COMMA  &kp DOT  &kp FSLH  &kp LALT
 &kp SPACE         &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans                 &kp LEFT                 &kp LEFT_SHIFT  &trans             &kp BACKSLASH      &kp PIPE
-&kp LCTRL         &sk LEFT_COMMAND      &kp LEFT_CONTROL       &kp LEFT_ALT  &kp TAB                           &kp TAB         &kp RIGHT_COMMAND  &kp RIGHT_CONTROL  &kp RIGHT_ALT    &kp BACKSPACE
+&kp ENTER         &sk LEFT_COMMAND      &kp LEFT_CONTROL       &kp LEFT_ALT  &kp TAB                           &kp TAB         &kp RIGHT_COMMAND  &kp RIGHT_CONTROL  &kp RIGHT_ALT    &kp BACKSPACE
                                                                                                                &kp K_MUTE
             >;
 
