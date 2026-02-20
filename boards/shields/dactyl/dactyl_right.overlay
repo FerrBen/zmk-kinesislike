@@ -50,19 +50,10 @@
         zmk,kscan = &kscan_composite;
     };
 
-    right_encoder: encoder_right {
-        compatible = "alps,ec11";
-        a-gpios = <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&pro_micro 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <80>;
-        status = "okay";
-    };
+};
 
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&right_encoder>;
-        triggers-per-rotation = <20>;
-    };
+&right_encoder {
+    status = "okay";
 };
 
 &split {
