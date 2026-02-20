@@ -72,20 +72,13 @@
 
         default_layer {
             bindings = <
-// Row 0 (15): L(c0-c6)                                                         5way(dn)    R(c8-c14)
-&kp GRAVE         &kp N1  &kp N2                &kp N3                 &kp N4            &kp N5     &kp C_VOL_DN    &tmux_n4    &kp C_VOLUME_UP  &kp N6          &kp N7        &kp N8         &kp N9            &kp N0       &kp DELETE
-// Row 1 (15): L(c0-c6)                                                         5way(ct)    R(c8-c14)
-&kp LEFT_BRACKET  &kp Q   &kp W                 &kp E                  &kp R             &kp T      &kp C_BRI_DEC   &kp LC(A)   &kp C_BRI_INC    &kp Y           &kp U         &kp I          &kp O             &kp P        &kp RIGHT_BRACKET
-// Row 2 (15): L(c0-c6)                                                         5way(up)    R(c8-c14)
-&lt 3 MINUS       &kp A   &kp S                 &kp D                  &kp F             &kp G      &kp EQUAL       &tmux_n3    &kp EXCL         &kp H           &kp J         &kp K          &kp L             &kp SEMI     &kp APOS
-// Row 3 (13): L(c0-c5)                                        5way(rt)    R(c9-c14)
-&kp LALT          &kp Z   &kp X                 &kp C                  &kp V             &kp B      &tmux_n1        &kp N       &kp M            &kp COMMA       &kp DOT       &kp FSLH       &kp LALT
-// Row 4 (9): L(c1-c4)                          5way(lt)    R(c13,c10,c11,c12)
-&trans            &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &lt 2 ENTER    &tmux_n2    &trans          &lt 1 ESCAPE  &kp BACKSLASH  &kp PIPE
-// Row 5 (10): L(c2,c4,c5,c6,c3)                        R(c12,c10,c9,c8,c11)
-&kp LCTRL         &sk LEFT_COMMAND  &kp SPACE  &kp N1   &kp LEFT    &kp LEFT_CONTROL  &kp TAB       &kp LEFT_SHIFT &kp N3           &kp BACKSPACE
-// Row 6 (1): EC11 push
-&kp K_MUTE
+&kp GRAVE         &kp N1                &kp N2                 &kp N3       &kp N4    &kp N5    &kp C_VOL_DN                   &kp ENTER                        &kp C_VOLUME_UP  &kp N6         &kp N7     &kp N8   &kp N9    &kp N0    &kp DELETE
+&kp LEFT_BRACKET  &kp Q                 &kp W                  &kp E        &kp R     &kp T     &kp C_BRI_DEC                  &kp DOWN_ARROW                   &kp C_BRI_INC    &kp Y          &kp U      &kp I    &kp O     &kp P     &kp RIGHT_BRACKET
+&lt 3 MINUS       &kp A                 &kp S                  &kp D        &kp F     &kp G     &kp EQUAL                      &kp UP_ARROW                     &kp EXCL         &kp H          &kp J      &kp K    &kp L     &kp SEMI  &kp APOS
+&kp LALT          &kp Z                 &kp X                  &kp C        &kp V     &kp B                                    &kp RIGHT_ARROW                  &kp N            &kp M          &kp COMMA  &kp DOT  &kp FSLH  &kp LALT
+&kp SPACE         &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &lt 2 ENTER            &kp LEFT                 &kp LEFT_SHIFT  &lt 1 ESCAPE     &kp BACKSLASH   &kp PIPE
+&kp LCTRL         &sk LEFT_COMMAND      &kp SPACE              &kp N1       &kp LEFT                           &kp BACKSPACE   &kp TAB          &kp LEFT_SHIFT  &kp N3           &kp BACKSPACE
+                                                                                                               &kp K_MUTE
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -93,20 +86,13 @@
 
         raise {
             bindings = <
-// Row 0 (15)
-&kp TILDE  &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION  &trans          &kp C_BRI_DEC  &trans      &trans     &trans          &trans        &trans     &trans  &trans
-// Row 1 (15)
-&kp SLASH  &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT        &trans          &kp K_MUTE     &trans      &trans     &kp LC(D)       &kp LC(U)     &trans     &trans  &trans
-// Row 2 (15)
-&kp HASH   &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT   &trans          &kp C_BRI_UP   &vim_write  &kp LEFT   &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &trans  &trans
-// Row 3 (13)
-&kp EXCL   &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS      &kp C_VOL_UP    &kp N0         &kp LS(G)   &gg        &kp DOLLAR      &trans        &trans
-// Row 4 (9)
-&trans     &kp AMPS          &kp PIPE              &kp COLON              &kp C_VOL_DN       &trans         &trans          &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))
-// Row 5 (10)
-&kp ASTERISK  &kp BACKSLASH  &kp SEMICOLON         &trans                 &trans             &trans         &trans          &trans         &trans      &trans
-// Row 6 (1)
-&trans
+&kp TILDE     &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION  &trans          &kp C_BRI_DEC                             &trans                    &trans     &trans          &trans        &trans     &trans  &trans
+&kp SLASH     &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT        &trans          &kp K_MUTE                                &trans                    &trans     &kp LC(D)       &kp LC(U)     &trans     &trans  &trans
+&kp HASH      &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT   &trans          &kp C_BRI_UP                              &vim_write                &kp LEFT   &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &trans  &trans
+&kp EXCL      &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS                      &kp C_VOL_UP                              &kp N0                    &kp LS(G)  &gg             &kp DOLLAR    &trans     &trans
+&trans        &kp AMPS          &kp PIPE              &kp COLON                                 &kp C_VOL_DN          &trans  &trans         &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))
+&kp ASTERISK  &kp BACKSLASH     &kp SEMICOLON         &trans                 &trans                                   &trans  &trans         &trans                     &trans                    &trans
+                                                                                                                      &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -114,20 +100,13 @@
 
         lower {
             bindings = <
-// Row 0 (15)
-&trans     &kp F1    &kp F2     &kp F3     &kp F4      &kp F5       &kp F6          &kp C_BRI_DN      &trans          &kp F7         &kp F8         &kp F9     &kp F10       &kp F11       &kp F12
-// Row 1 (15)
-&trans     &kp EXCL  &kp AT     &kp HASH   &kp DOLLAR  &kp PERCENT  &trans          &kp K_MUTE        &trans          &kp CARET      &kp AMPS       &kp ASTRK  &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
-// Row 2 (15)
-&trans     &kp N1    &kp N2     &kp N3     &kp N4      &kp N5       &trans          &kp C_BRI_UP      &trans          &kp MINUS      &kp EQUAL      &kp GRAVE  &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
-// Row 3 (13)
-&kp LALT   &kp N6    &kp N7     &kp N8     &kp N9      &kp N0       &kp C_VOLUME_UP &kp LS(UNDER)     &kp LS(PLUS)    &kp LS(TILDE)  &kp LBKT       &kp RBKT   &trans
-// Row 4 (9)
-&trans     &trans    &trans     &trans     &kp C_VOL_DN &trans        &trans          &trans            &trans
-// Row 5 (10)
-&trans     &trans    &trans     &mkp LCLK  &trans       &trans        &trans          &trans            &mkp RCLK      &trans
-// Row 6 (1)
-&trans
+&trans    &kp F1    &kp F2  &kp F3     &kp F4      &kp F5        &kp F6          &kp C_BRI_DN             &trans         &kp F7        &kp F8         &kp F9     &kp F10       &kp F11       &kp F12
+&trans    &kp EXCL  &kp AT  &kp HASH   &kp DOLLAR  &kp PERCENT   &trans          &kp K_MUTE               &trans         &kp CARET     &kp AMPS       &kp ASTRK  &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
+&trans    &kp N1    &kp N2  &kp N3     &kp N4      &kp N5        &trans          &kp C_BRI_UP             &trans         &kp MINUS     &kp EQUAL      &kp GRAVE  &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
+&kp LALT  &kp N6    &kp N7  &kp N8     &kp N9      &kp N0                        &kp C_VOLUME_UP          &kp LS(UNDER)  &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT   &kp RBKT      &trans
+&trans    &trans    &trans  &trans                 &kp C_VOL_DN          &trans  &trans           &trans  &trans
+&trans    &trans    &trans  &mkp LCLK  &trans                            &trans  &trans           &trans  &mkp RCLK      &trans
+                                                                         &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -135,20 +114,13 @@
 
         adjust {
             bindings = <
-// Row 0 (15)
-&bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans     &trans     &trans          &trans          &trans           &trans  &trans
-// Row 1 (15)
-&out OUT_USB   &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans  &trans  &trans     &trans     &trans          &mmv MOVE_UP    &trans           &trans  &trans
-// Row 2 (15)
-&trans         &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans     &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
-// Row 3 (13)
-&trans         &trans        &trans        &trans        &trans        &trans        &trans  &trans  &msc SCRL_UP  &msc SCRL_DOWN  &trans  &trans  &trans
-// Row 4 (9)
-&trans         &trans        &trans        &trans        &trans        &trans         &mkp LCLK  &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))
-// Row 5 (10)
-&to 4          &trans        &trans        &trans        &trans        &mkp MB5      &mkp MCLK  &mkp RCLK  &trans  &mkp MB4
-// Row 6 (1)
-&trans
+&bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans            &trans                               &trans                     &trans        &trans          &trans          &trans           &trans  &trans
+&out OUT_USB  &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans            &trans                               &trans                     &trans        &trans          &mmv MOVE_UP    &trans           &trans  &trans
+&trans        &trans        &trans        &trans        &trans        &trans        &trans            &trans                               &trans                     &trans        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
+&trans        &trans        &trans        &trans        &trans        &trans                          &trans                               &trans                     &msc SCRL_UP  &msc SCRL_DOWN  &trans          &trans           &trans
+&trans        &trans        &trans        &trans                      &trans                &trans    &mkp LCLK  &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))
+&to 4         &trans        &trans        &trans        &trans                              &mkp MB5  &mkp MCLK  &mkp RCLK                 &trans                     &mkp MB4
+                                                                                            &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -156,20 +128,13 @@
 
         layer_4 {
             bindings = <
-// Row 0 (15)
-&trans         &kp N1     &kp N2     &kp N3   &kp N4     &kp N5    &kp N6   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-// Row 1 (15)
-&trans         &kp TAB    &kp Q      &kp W    &kp E      &kp R     &kp T    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-// Row 2 (15)
-&kp ESCAPE     &kp CAPS   &kp A      &kp S    &kp D      &kp F     &kp G    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-// Row 3 (13)
-&trans         &kp LSHFT  &kp Z      &kp X    &kp C      &kp V     &trans   &trans  &trans  &trans  &trans  &trans  &trans
-// Row 4 (9)
-&trans         &trans     &trans     &kp SPACE  &trans    &trans     &trans   &trans  &trans
-// Row 5 (10)
-&to 0          &kp LALT   &kp LGUI   &trans   &trans     &trans     &trans   &trans  &trans  &trans
-// Row 6 (1)
-&trans
+&trans      &kp N1     &kp N2    &kp N3     &kp N4  &kp N5  &kp N6          &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &kp TAB    &kp Q     &kp W      &kp E   &kp R   &kp T           &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&kp ESCAPE  &kp CAPS   &kp A     &kp S      &kp D   &kp F   &kp G           &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &kp LSHFT  &kp Z     &kp X      &kp C   &kp V                   &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &trans     &trans    &kp SPACE          &trans          &trans  &trans  &trans  &trans
+&to 0       &kp LALT   &kp LGUI  &trans     &trans                  &trans  &trans  &trans  &trans  &trans
+                                                                    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
