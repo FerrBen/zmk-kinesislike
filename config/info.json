@@ -85,9 +85,9 @@
         { "row": 5, "col": 2, "x": 7, "y": 6, "label": "L5c2" },
         { "row": 5, "col": 3, "x": 7, "y": 5, "label": "L5c3" },
         { "row": 5, "col": 4, "x": 6, "y": 5, "label": "L5c4" },
-        { "row": 5, "col": 7, "x": 11, "y": 6, "label": "R5c0" },
+        { "row": 5, "col": 7, "x": 12, "y": 5, "label": "R5c0" },
         { "row": 5, "col": 8, "x": 11, "y": 7, "label": "R5c1" },
-        { "row": 5, "col": 9, "x": 12, "y": 5, "label": "R5c2" },
+        { "row": 5, "col": 9, "x": 11, "y": 6, "label": "R5c2" },
         { "row": 5, "col": 10, "x": 11, "y": 5, "label": "R5c3" },
         { "row": 5, "col": 11, "x": 12, "y": 6, "h": 2, "label": "R5c4" },
 
