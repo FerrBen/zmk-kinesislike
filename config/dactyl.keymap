@@ -61,44 +61,46 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // Layout per side: 7-7-7-6-5-3 = 35 keys
+        // 63 bindings per layer (only physical keys, no &none padding)
+        //
+        // Row 0: 7L + 5way + 7R = 15    Row 3: 6L + 5way + 6R = 13
+        // Row 1: 7L + 5way + 7R = 15    Row 4: 4L + 5way + 4R = 9
+        // Row 2: 7L + 5way + 7R = 15    Row 5: 5L + 5R        = 10
+        // Row 6: EC11 push       = 1     Total: 63
+        //
         // Left:  cols 0-6 (keys) + col 7 (5-way switch, rows 0-4)
-        // Right: cols 8-14 (keys, includes EC11 push button)
+        // Right: cols 8-14 (keys) + EC11 push (col 15)
         // EC11 rotation handled by sensor-bindings
+        //
+        // 5-way direction mapping (after swap fix):
+        //   row 0 = down, row 1 = center, row 2 = up, row 3 = right, row 4 = left
 
         default_layer {
-            // DEBUG KEYMAP - each key outputs a unique character to identify its position
-            // Left cols 0-6 (L)    5-way col 7 (S)    Right cols 8-14 (R)
+            // DEBUG KEYMAP — each key outputs a unique identifier
+            // L=left  S=5way  R=right  (physical left-to-right order)
             //
-            // Expected output when pressing keys left-to-right, top-to-bottom:
-            // LEFT  Row 0: 1 2 3 4 5 6 7       5way: a    RIGHT Row 0: q w e r t y u
-            // LEFT  Row 1: 8 9 0 - = [ ]       5way: b    RIGHT Row 1: i o p a s d f
-            // LEFT  Row 2: a s d f g h j       5way: c    RIGHT Row 2: g h j k l ; '
-            // LEFT  Row 3: z x c v b n (none)  5way: d    RIGHT Row 3: m , . / 1 2 (none)
-            // LEFT  Row 4: 3 4 5 6 (nones)     5way: e    RIGHT Row 4: 7 8 9 0 (nones)
-            // LEFT  Row 5: q w e r t (nones)   (none)     RIGHT Row 5: y u i o p (nones)
-            // EC11 push: z
-            //
-            // NOTE: left uses &kp N1-N7 for row0 to avoid modifier confusion
-            //       right uses &kp letters to be clearly distinguishable
+            // Row 0: L: 1 2 3 4 5 6 7     S: C(dn)    R: Q W E R T Y U
+            // Row 1: L: 8 9 0 - = [ ]     S: B(ct)    R: I O P F1 F2 F3 F4
+            // Row 2: L: F5..F11            S: A(up)    R: F12 G H J K L ;
+            // Row 3: L: Z X V , . /        S: E(rt)    R: N ` \ ' - DEL
+            // Row 4: L: B C D E            S: H(lt)    R: . L ; /
+            // Row 5: L: 3 5 6 7 4                      R: = 0 9 8 -
+            // EC11 push: Z
 
             bindings = <
-// Row 0: L=1234567  S=down(c)  R=qwertyu
-&kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp N6  &kp N7     &kp C      &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U
-// Row 1: L=890-=[]  S=center(b)  R=iopasdf
-&kp N8  &kp N9  &kp N0  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT  &kp B  &kp I  &kp O  &kp P  &kp F1  &kp F2  &kp F3  &kp F4
-// Row 2: L=asdfghj  S=up(a)  R=ghjkl;'
-&kp F5  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &kp F11    &kp A      &kp F12  &kp G  &kp H  &kp J  &kp K  &kp L  &kp SEMI
-// Row 3: ALL cols bound for diagnostics
-// L3: c0=Z c1=X c2=V c3=, c4=. c5=/ c6=TAB    5way=E    R3: c0=M c1=N c2=` c3=\ c4=' c5=- c6=DEL
-&kp Z  &kp X  &kp V  &kp COMMA  &kp DOT  &kp FSLH  &kp TAB   &kp E      &kp M  &kp N  &kp GRAVE  &kp BSLH  &kp SQT  &kp MINUS  &kp DEL
-// Row 4: ALL cols bound for diagnostics
-// L4: c0=A c1=B c2=C c3=D c4=E c5=F c6=G       5way=H    R4: c0=J c1=K c2=L c3=; c4=/ c5=. c6=,
-&kp A  &kp B  &kp C  &kp D  &kp E  &kp F  &kp G              &kp H      &kp J  &kp K  &kp L  &kp SEMI  &kp FSLH  &kp DOT  &kp COMMA
-// Row 5: ALL cols bound for diagnostics
-// L5: c0=N1 c1=N2 c2=N3 c3=N4 c4=N5 c5=N6 c6=N7   (none)   R5: c0=N8 c1=N9 c2=N0 c3=- c4== c5=[ c6=]
-&kp N1  &kp N2  &kp N3  &kp N4  &kp N5  &kp N6  &kp N7       &none      &kp N8  &kp N9  &kp N0  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT
-// Row 6: EC11 push button
+// Row 0 (15): L(c0-c6) 5way R(c8-c14)
+&kp N1    &kp N2    &kp N3     &kp N4     &kp N5     &kp N6     &kp N7      &kp C      &kp Q    &kp W   &kp E    &kp R    &kp T    &kp Y     &kp U
+// Row 1 (15): L(c0-c6) 5way R(c8-c14)
+&kp N8    &kp N9    &kp N0     &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT    &kp B      &kp I    &kp O   &kp P    &kp F1   &kp F2   &kp F3    &kp F4
+// Row 2 (15): L(c0-c6) 5way R(c8-c14)
+&kp F5    &kp F6    &kp F7     &kp F8     &kp F9     &kp F10    &kp F11     &kp A      &kp F12  &kp G   &kp H    &kp J    &kp K    &kp L     &kp SEMI
+// Row 3 (13): L(c0-c5) 5way R(c9-c14)
+&kp Z     &kp X     &kp V      &kp COMMA  &kp DOT    &kp FSLH   &kp E      &kp N      &kp GRAVE  &kp BSLH  &kp SQT  &kp MINUS  &kp DEL
+// Row 4 (9): L(c1-c4) 5way R(c14,c10,c11,c12)
+&kp B     &kp C     &kp D      &kp E      &kp H      &kp DOT    &kp L      &kp SEMI   &kp FSLH
+// Row 5 (10): L(c2,c4,c5,c6,c3) R(c12,c10,c9,c8,c11)
+&kp N3    &kp N5    &kp N6     &kp N7     &kp N4     &kp EQUAL  &kp N0     &kp N9     &kp N8   &kp MINUS
+// Row 6 (1): EC11 push
 &kp Z
             >;
 
@@ -106,13 +108,30 @@
         };
 
         raise {
+            // Old row 3: &kp EXCL &kp LESS_THAN &kp MINUS &kp EQUAL &kp GREATER_THAN &kp PLUS [&none] &kp C_VOL_DN [&kp N0] &kp LS(G) &gg &kp DOLLAR &trans &trans [&none]
+            // New row 3: drop pos6(&none), pos8(&kp N0) → keep pos0-5, pos7, pos9-14
+            //            but pos14 was &none → now removed entirely
+            //
+            // Old row 4: &kp AMPS &kp PIPE &kp COLON &kp BACKSLASH [&none &none &none] &kp C_VOL_UP [&trans &trans] &kp LS(LC(RIGHT_BRACKET)) &kp LS(LC(LEFT_BRACKET)) [&none &none &none]
+            // New row 4: pick pos 1,2,3,4, 7, 14,10,11,12
+            //
+            // Old row 5: &kp ASTERISK &kp SEMICOLON &trans &trans &trans [&none &none] [&none] [&trans &trans] &trans &trans &trans [&none &none]
+            // New row 5: pick pos 2,4,5,6,3, 12,10,9,8,11
+
             bindings = <
-&kp TILDE  &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION   &trans  &kp C_BRI_UP   &trans      &trans    &trans          &trans                     &trans                    &trans  &trans
-&kp SLASH  &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT         &trans  &kp K_MUTE     &trans      &trans    &kp LC(D)       &kp LC(U)                  &trans                    &trans  &trans
-&kp HASH   &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT    &trans  &kp C_BRI_DEC  &vim_write  &kp LEFT  &kp DOWN_ARROW  &kp UP_ARROW               &kp RIGHT                 &trans  &trans
-&kp EXCL   &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS       &none   &kp C_VOL_DN   &kp N0       &kp LS(G)  &gg             &kp DOLLAR                 &trans                    &trans  &none
-&kp AMPS   &kp PIPE          &kp COLON             &kp BACKSLASH          &none              &none          &none   &kp C_VOL_UP   &trans      &trans    &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))   &none                     &none   &none
-&kp ASTERISK  &kp SEMICOLON  &trans                &trans                 &trans             &none          &none   &none          &trans      &trans    &trans                     &trans                     &trans                    &none   &none
+// Row 0 (15)
+&kp TILDE  &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION  &trans     &kp C_BRI_UP   &trans      &trans     &trans          &trans        &trans     &trans  &trans
+// Row 1 (15)
+&kp SLASH  &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT        &trans     &kp K_MUTE     &trans      &trans     &kp LC(D)       &kp LC(U)     &trans     &trans  &trans
+// Row 2 (15)
+&kp HASH   &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT   &trans     &kp C_BRI_DEC  &vim_write  &kp LEFT   &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &trans  &trans
+// Row 3 (13): old pos 0-5, 7, 9-14 (pos6 dropped, pos8 dropped)
+&kp EXCL   &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS      &kp C_VOL_DN   &kp LS(G)  &gg         &kp DOLLAR  &trans  &trans  &trans
+// Row 4 (9): old pos 1,2,3,4, 7, 14,10,11,12
+&kp PIPE   &kp COLON         &kp BACKSLASH         &trans                 &kp C_VOL_UP       &trans         &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))  &trans
+// Row 5 (10): old pos 2,4,5,6,3, 12,10,9,8,11
+&trans     &trans             &trans                &trans                 &trans             &trans         &trans     &trans          &trans      &trans
+// Row 6 (1)
 &trans
             >;
 
@@ -120,13 +139,24 @@
         };
 
         lower {
+            // Old row 3: &kp LALT &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 [&none] &kp C_VOL_DN [&kp LS(UNDER)] &kp LS(PLUS) &kp LS(TILDE) &kp LBKT &kp RBKT &trans [&none]
+            // Old row 4: &trans &trans &trans &trans [&none &none &none] &kp C_VOLUME_UP [&trans &trans] &trans &trans [&none &none &none]
+            // Old row 5: &trans &trans &trans &trans &trans [&none &none] [&none] [&mkp LCLK &mkp MCLK] &mkp RCLK &trans &trans [&none &none]
+
             bindings = <
-&trans    &kp F1    &kp F2  &kp F3    &kp F4      &kp F5       &kp F6     &kp C_BRI_UP     &trans     &kp F7         &kp F8        &kp F9         &kp F10       &kp F11       &kp F12
-&trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT  &trans     &kp K_MUTE       &trans     &kp CARET      &kp AMPS      &kp ASTRK      &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
-&trans    &kp N1    &kp N2  &kp N3    &kp N4      &kp N5       &trans     &kp C_BRI_DN     &trans     &kp MINUS      &kp EQUAL     &kp GRAVE      &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
-&kp LALT  &kp N6    &kp N7  &kp N8    &kp N9      &kp N0       &none      &kp C_VOL_DN     &kp LS(UNDER)  &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT       &kp RBKT      &trans        &none
-&trans    &trans    &trans  &trans    &none        &none        &none      &kp C_VOLUME_UP  &trans         &trans        &trans         &trans         &none         &none         &none
-&trans    &trans    &trans  &trans    &trans       &none        &none      &none            &mkp LCLK      &mkp MCLK     &mkp RCLK      &trans         &trans        &none         &none
+// Row 0 (15)
+&trans     &kp F1    &kp F2     &kp F3     &kp F4      &kp F5       &kp F6     &kp C_BRI_UP      &trans          &kp F7         &kp F8         &kp F9     &kp F10       &kp F11       &kp F12
+// Row 1 (15)
+&trans     &kp EXCL  &kp AT     &kp HASH   &kp DOLLAR  &kp PERCENT  &trans     &kp K_MUTE        &trans          &kp CARET      &kp AMPS       &kp ASTRK  &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
+// Row 2 (15)
+&trans     &kp N1    &kp N2     &kp N3     &kp N4      &kp N5       &trans     &kp C_BRI_DN      &trans          &kp MINUS      &kp EQUAL      &kp GRAVE  &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
+// Row 3 (13): old pos 0-5, 7, 9-14 (pos6 dropped, pos8 dropped)
+&kp LALT   &kp N6    &kp N7     &kp N8     &kp N9      &kp N0       &kp C_VOL_DN   &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT  &kp RBKT  &trans  &trans
+// Row 4 (9): old pos 1,2,3,4, 7, 14,10,11,12
+&trans     &trans    &trans     &trans     &kp C_VOLUME_UP  &trans    &trans         &trans         &trans
+// Row 5 (10): old pos 2,4,5,6,3, 12,10,9,8,11
+&trans     &trans    &trans     &trans     &trans       &mkp RCLK    &trans         &mkp MCLK      &mkp LCLK  &trans
+// Row 6 (1)
 &trans
             >;
 
@@ -134,13 +164,24 @@
         };
 
         adjust {
+            // Old row 3: &trans &trans &trans &trans &trans &trans [&none] &trans [&trans] &msc SCRL_UP &msc SCRL_DOWN &trans &trans &trans [&none]
+            // Old row 4: &trans &trans &trans &trans [&none &none &none] &trans [&trans &mkp LCLK] &kp LS(LC(LEFT_BRACKET)) &kp LS(LC(RIGHT_BRACKET)) [&none &none &none]
+            // Old row 5: &trans &to 4 &trans &trans &trans [&none &none] [&none] [&mkp RCLK &mkp MCLK] &mkp MB4 &mkp MB5 &trans [&none &none]
+
             bindings = <
-&bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans     &trans          &trans                    &trans                     &trans  &trans
-&out OUT_USB  &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans  &trans  &trans  &trans     &trans          &mmv MOVE_UP              &trans                     &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN            &mmv MOVE_RIGHT            &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans        &none   &trans  &trans     &msc SCRL_UP    &msc SCRL_DOWN  &trans                    &trans                     &trans  &none
-&trans        &trans        &trans        &trans        &none         &none         &none   &trans  &trans     &mkp LCLK       &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))  &none              &none   &none
-&trans        &to 4         &trans        &trans        &trans        &none         &none   &none   &mkp RCLK  &mkp MCLK       &mkp MB4                  &mkp MB5                   &trans             &none   &none
+// Row 0 (15)
+&bt BT_CLR     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans     &trans     &trans          &trans          &trans           &trans  &trans
+// Row 1 (15)
+&out OUT_USB   &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans  &trans  &trans     &trans     &trans          &mmv MOVE_UP    &trans           &trans  &trans
+// Row 2 (15)
+&trans         &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans     &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
+// Row 3 (13): old pos 0-5, 7, 9-14 (pos6 dropped, pos8 dropped)
+&trans         &trans        &trans        &trans        &trans        &trans        &trans  &msc SCRL_UP  &msc SCRL_DOWN  &trans  &trans  &trans  &trans
+// Row 4 (9): old pos 1,2,3,4, 7, 14,10,11,12
+&trans         &trans        &trans        &trans        &trans        &trans         &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))  &mkp LCLK
+// Row 5 (10): old pos 2,4,5,6,3, 12,10,9,8,11
+&trans         &trans        &trans        &trans        &to 4         &mkp MB4      &trans         &mkp MCLK       &mkp RCLK  &mkp MB5
+// Row 6 (1)
 &trans
             >;
 
@@ -148,13 +189,24 @@
         };
 
         layer_4 {
+            // Old row 3: &trans &kp LSHFT &kp Z &kp X &kp C &kp V [&none] &trans [&trans] &trans &trans &trans &trans &trans [&none]
+            // Old row 4: &kp SPACE &kp LALT &kp LGUI &trans [&none &none &none] &trans [&trans &trans] &trans &trans [&none &none &none]
+            // Old row 5: &to 0 &trans &trans &trans &trans [&none &none] [&none] [&trans &trans] &trans &trans &trans [&none &none]
+
             bindings = <
-&trans      &kp N1     &kp N2  &kp N3  &kp N4     &kp N5    &kp N6  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &kp TAB    &kp Q   &kp W   &kp E      &kp R     &kp T   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&kp ESCAPE  &kp CAPS   &kp A   &kp S   &kp D      &kp F     &kp G   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans      &kp LSHFT  &kp Z   &kp X   &kp C      &kp V     &none   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &none
-&kp SPACE   &kp LALT   &kp LGUI  &trans  &none    &none     &none   &trans  &trans  &trans  &trans  &trans  &none   &none   &none
-&to 0       &trans     &trans  &trans  &trans     &none     &none   &none   &trans  &trans  &trans  &trans  &trans  &none   &none
+// Row 0 (15)
+&trans         &kp N1     &kp N2     &kp N3   &kp N4     &kp N5    &kp N6   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+// Row 1 (15)
+&trans         &kp TAB    &kp Q      &kp W    &kp E      &kp R     &kp T    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+// Row 2 (15)
+&kp ESCAPE     &kp CAPS   &kp A      &kp S    &kp D      &kp F     &kp G    &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+// Row 3 (13): old pos 0-5, 7, 9-14 (pos6 dropped, pos8 dropped)
+&trans         &kp LSHFT  &kp Z      &kp X    &kp C      &kp V     &trans   &trans  &trans  &trans  &trans  &trans  &trans
+// Row 4 (9): old pos 1,2,3,4, 7, 14,10,11,12
+&kp LALT       &kp LGUI   &trans     &trans   &trans     &trans     &trans         &trans         &trans
+// Row 5 (10): old pos 2,4,5,6,3, 12,10,9,8,11
+&trans         &trans     &trans     &trans   &trans     &trans     &trans         &trans         &trans     &trans
+// Row 6 (1)
 &trans
             >;
 
