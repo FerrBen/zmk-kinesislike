@@ -21,10 +21,7 @@
 include:
     - board: nice_nano_v2
       shield: dactyl_left
-      keymap: dactyl
     - board: nice_nano_v2
       shield: dactyl_right
-      keymap: dactyl
     - board: nice_nano_v2
       shield: settings_reset
-      keymap: dactyl

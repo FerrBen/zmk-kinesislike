@@ -17,11 +17,11 @@
 // Row 0: 7L + 5way + 7R = 15       Row 3: 6L + 5way + 6R = 13
 // Row 1: 7L + 5way + 7R = 15       Row 4: 4L + 5way + 4R = 9
 // Row 2: 7L + 5way + 7R = 15       Row 5: 5L + 5R        = 10
-// Row 6: 1 EC11 push               Total: 63 bindings per layer
+// Row 6: 1 EC11 push               Total: 78 bindings per layer
 //
 // Left:  36 keys + 5 five-way = 41
 // Right: 36 keys + 1 EC11 push = 37
-// Grand total: 63 physical positions (+ EC11 rotation via sensor)
+// Grand total: 78 physical positions (+ EC11 rotation via sensor)
 
         map = <
 // Row 0: L(c0-c6) 5way R(c8-c14) = 15

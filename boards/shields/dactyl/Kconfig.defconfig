@@ -1,7 +1,7 @@
 if SHIELD_DACTYL_LEFT
 
 config ZMK_KEYBOARD_NAME
-    default "Dactyl Manuform"
+    default "Mattis Dactyl"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     bool
