@@ -1,0 +1,143 @@
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // default: 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // default: 10
+
+#include <dt-bindings/zmk/mouse.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
+
+#define DEFAULT 0
+#define LOWER 1
+#define RAISE 2
+#define ADJUST 3
+
+/ {
+    macros {
+        gg: gg {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp G &kp G>;
+            label = "GG";
+        };
+
+        vim_write: vim_write {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON &kp W &kp ENTER>;
+            label = "VIM_WRITE";
+        };
+
+        tmux_n1: tmux_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A) &kp NUMBER_1>;
+            label = "TMUX_NEXT";
+        };
+
+        tmux_n2: tmux_n2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A) &kp NUMBER_2>;
+            label = "TMUX_N2";
+        };
+
+        tmux_n3: tmux_n3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A) &kp NUMBER_3>;
+            label = "TMUX_N3";
+        };
+
+        tmux_n4: tmux_n4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(A) &kp NUMBER_4>;
+            label = "TMUX_N4";
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        // 78 bindings per layer (only physical keys, no &none padding)
+        //
+        // Row 0: 7L + 5way + 7R = 15    Row 3: 6L + 5way + 6R = 13
+        // Row 1: 7L + 5way + 7R = 15    Row 4: 4L + 5way + 4R = 9
+        // Row 2: 7L + 5way + 7R = 15    Row 5: 5L + 5R        = 10
+        // Row 6: EC11 push       = 1     Total: 78
+        //
+        // 5-way: row0=down row1=center row2=up row3=right row4=left
+
+        default_layer {
+            bindings = <
+&kp GRAVE         &kp N1                &kp N2                 &kp N3        &kp N4      &kp N5    &kp C_VOL_DN                   &kp DOWN_ARROW                        &kp C_VOLUME_UP  &kp N6   &kp N7     &kp N8   &kp N9    &kp N0    &kp DELETE
+&kp LEFT_BRACKET  &kp Q                 &kp W                  &kp E         &kp R       &kp T     &kp C_BRI_DEC                  &kp ENTER                             &kp C_BRI_INC    &kp Y    &kp U      &kp I    &kp O     &kp P     &kp RIGHT_BRACKET
+&lt 3 MINUS       &kp A                 &kp S                  &kp D         &kp F       &kp G     &kp EQUAL                      &kp UP_ARROW                          &kp EXCL         &kp H    &kp J      &kp K    &kp L     &kp SEMI  &kp APOS
+&kp LALT          &kp Z                 &kp X                  &kp C         &kp V       &kp B                                    &kp RIGHT_ARROW                       &kp N            &kp M    &kp COMMA  &kp DOT  &kp FSLH  &kp LALT
+&kp SPACE         &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LG(C)                 &kp LEFT                 &kp LEFT_SHIFT  &kp LG(V)          &kp BACKSLASH      &kp PIPE
+&kp ENTER         &sk LEFT_COMMAND      &kp LEFT_CONTROL       &kp LEFT_ALT  &kp ESCAPE                           &kp BACKSPACE   &kp RIGHT_COMMAND  &kp RIGHT_CONTROL  &kp RIGHT_ALT    &kp TAB
+                                                                                                                  &kp K_MUTE
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        raise {
+            bindings = <
+&kp TILDE     &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp QUESTION  &trans          &kp C_BRI_DEC                             &trans                    &trans     &trans          &trans        &trans     &trans  &trans
+&kp SLASH     &kp LEFT_BRACE    &kp GRAVE             &kp SINGLE_QUOTE       &kp RIGHT_BRACE    &kp AT        &trans          &kp K_MUTE                                &trans                    &trans     &kp LC(D)       &kp LC(U)     &trans     &trans  &trans
+&kp HASH      &kp CARET         &kp DOUBLE_QUOTES     &kp UNDER              &kp DOLLAR         &kp PERCENT   &trans          &kp C_BRI_UP                              &vim_write                &kp LEFT   &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &trans  &trans
+&kp EXCL      &kp LESS_THAN     &kp MINUS             &kp EQUAL              &kp GREATER_THAN   &kp PLUS                      &kp C_VOL_UP                              &kp N0                    &kp LS(G)  &gg             &kp DOLLAR    &trans     &trans
+&trans        &kp AMPS          &kp PIPE              &kp COLON                                 &kp C_VOL_DN          &trans  &trans         &kp LS(LC(RIGHT_BRACKET))  &kp LS(LC(LEFT_BRACKET))
+&kp ASTERISK  &kp BACKSLASH     &kp SEMICOLON         &trans                 &trans                                   &trans  &trans         &trans                     &trans                    &trans
+                                                                                                                      &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        lower {
+            bindings = <
+&trans    &kp F1    &kp F2  &kp F3     &kp F4      &kp F5        &kp F6          &kp C_BRI_DN             &trans         &kp F7        &kp F8         &kp F9     &kp F10       &kp F11       &kp F12
+&trans    &kp EXCL  &kp AT  &kp HASH   &kp DOLLAR  &kp PERCENT   &trans          &kp K_MUTE               &trans         &kp CARET     &kp AMPS       &kp ASTRK  &kp LS(LPAR)  &kp LS(RPAR)  &kp BSLH
+&trans    &kp N1    &kp N2  &kp N3     &kp N4      &kp N5        &trans          &kp C_BRI_UP             &trans         &kp MINUS     &kp EQUAL      &kp GRAVE  &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PIPE)
+&kp LALT  &kp N6    &kp N7  &kp N8     &kp N9      &kp N0                        &kp C_VOLUME_UP          &kp LS(UNDER)  &kp LS(PLUS)  &kp LS(TILDE)  &kp LBKT   &kp RBKT      &trans
+&trans    &trans    &trans  &trans                 &kp C_VOL_DN          &trans  &trans           &trans  &trans
+&trans    &trans    &trans  &mkp LCLK  &trans                            &trans  &trans           &trans  &mkp RCLK      &trans
+                                                                         &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        adjust {
+            bindings = <
+&bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans            &trans                               &trans                     &trans        &trans          &trans          &trans           &trans  &trans
+&out OUT_USB  &out OUT_BLE  &bootloader   &trans        &trans        &trans        &trans            &trans                               &trans                     &trans        &trans          &mmv MOVE_UP    &trans           &trans  &trans
+&trans        &trans        &trans        &trans        &trans        &trans        &trans            &trans                               &trans                     &trans        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans  &trans
+&trans        &trans        &trans        &trans        &trans        &trans                          &trans                               &trans                     &msc SCRL_UP  &msc SCRL_DOWN  &trans          &trans           &trans
+&trans        &trans        &trans        &trans                      &trans                &trans    &mkp LCLK  &kp LS(LC(LEFT_BRACKET))  &kp LS(LC(RIGHT_BRACKET))
+&to 4         &trans        &trans        &trans        &trans                              &mkp MB5  &mkp MCLK  &mkp RCLK                 &trans                     &mkp MB4
+                                                                                            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        layer_4 {
+            bindings = <
+&trans      &kp N1     &kp N2    &kp N3     &kp N4  &kp N5  &kp N6          &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &kp TAB    &kp Q     &kp W      &kp E   &kp R   &kp T           &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&kp ESCAPE  &kp CAPS   &kp A     &kp S      &kp D   &kp F   &kp G           &trans          &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &kp LSHFT  &kp Z     &kp X      &kp C   &kp V                   &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &trans     &trans    &kp SPACE          &trans          &trans  &trans  &trans  &trans
+&to 0       &kp LALT   &kp LGUI  &trans     &trans                  &trans  &trans  &trans  &trans  &trans
+                                                                    &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+    };
+};
